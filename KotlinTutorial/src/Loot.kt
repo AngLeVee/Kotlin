@@ -1,3 +1,6 @@
+/**
+ * Created by Angela Jensen for Android Oreo with Kotlin course
+ */
 
 enum class LootType {
     POTION, RING, ARMOR

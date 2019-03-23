@@ -1,3 +1,8 @@
+import kotlin.math.absoluteValue
+/**
+ * Created by Angela Jensen for Android Oreo with Kotlin course
+ */
+
 fun main() {
     println("Hello World")
     println("My first Kotlin program")
@@ -10,6 +15,7 @@ fun main() {
     val yes = hashSetOf("Y", "y", "Yes", "yes")
 
     do {
+        //Print menu
         println()
         println("Menu")
         println("---------------")
@@ -17,13 +23,13 @@ fun main() {
         println("2. Name")
         println("3. Age")
         println("4. Player info")
+        println("5. Enemies")
+        print("> "); var number = readLine()!!.toInt().absoluteValue
         println()
 
-        var number = readLine()!!.toInt()
-        println()
-        if (number < 1 || number > 4) {
-            println("Invalid number, try again")
-            number = readLine()!!.toInt()
+        if (number < 1) {
+            println("Please a non-zero number")
+            print("> "); number = readLine()!!.toInt()
             println()
         }
 
@@ -47,17 +53,19 @@ fun main() {
             }
             3 -> {
                 println("What year were you born?")
-                var year = readLine()!!.toIntOrNull()
+                print("> "); var year = readLine()!!.toIntOrNull()
+
                 var i = 1
-                while (year == null)
+                while (year == null && i <= 3)
                 {
                     println("Please enter a number")
-                    year = readLine()!!.toIntOrNull()
+                    print("> "); year = readLine()!!.toIntOrNull()
                     i ++
-
-                    if (i == 3)
-                        year = 2018
                 }
+
+                if (year == null)
+                    year = 2018
+
                 println("Age you turned in which year:")
                 for (i in 0..2) {
                     val oldYear = 2018 - (i * 5)
@@ -85,7 +93,8 @@ fun main() {
 
             4 -> {
                 println("Enter a player name")
-                var name = readLine()!!.toString()
+                print("> "); var name = readLine()!!.toString()
+
                 var player = Player(name, level = 1)
                 player.show()
                 println(player)
@@ -93,10 +102,11 @@ fun main() {
                 println(player.getData())
                 println()
                 println("Change player name?")
-                yn = readLine()!!.toString()
+                print("> "); yn = readLine()!!.toString()
 
                 if(yn in yes) {
                     println("Enter new name:")
+                    print("> ")
                     player.setData(PlayerDataType.NAME, nameIn = readLine()!!.toString())
                     println("New Name: ${player.getData(PlayerDataType.NAME)}")
                 }
@@ -107,13 +117,47 @@ fun main() {
                 player.showInventory()
             }
 
+            5 -> {
+                println("Fight a generic enemy?")
+                print("> ")
+                if (readLine()!!.toString() in yes) {
+
+                }
+                val enemy = Enemy("Test", 10, 2)
+                println(enemy)
+                enemy.takeDamage(5)
+                enemy.takeDamage(5)
+                println()
+                val troll = Troll("Test Troll")
+                println(troll)
+                troll.takeDamage(8)
+                troll.takeDamage(30)
+                println()
+                val vampire = Vampire("Vlad")
+                vampire.takeDamage(20)
+                vampire.takeDamage(40)
+                println()
+                val vampKing = VampireKing("Dracula")
+                while (vampKing.lives > 0) {
+                    if (vampKing.runAway()) {
+                        println("${vampKing.name} got away!")
+                        break
+                    }
+
+                    if (!vampKing.dodges())
+                        vampKing.takeDamage(200)
+                    else
+                        println("${vampKing.name} dodged")
+                }
+            }
+
             else ->
                 println("Invalid number")
         }
 
         println()
         println("Pick another?")
-        yn = readLine()!!.toString()
+        print("> "); yn = readLine()!!.toString()
     }while (yn in yes)
 
 }

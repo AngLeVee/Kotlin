@@ -1,5 +1,4 @@
 import java.util.ArrayList
-
 /**
  * Created by Angela Jensen for Android Oreo with Kotlin course
  */
